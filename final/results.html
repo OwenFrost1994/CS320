@@ -1,0 +1,112 @@
+<html>
+    <title>Results</title>
+    <style>
+
+      body {
+        margin: 10px 10px 10px 10px;
+        padding: auto;
+        max-width: auto;
+        background-color: white;
+        font-family: Kai, Times, "Kai", serif;
+        font-size: 1.2em;
+      }
+      a, a:visited { text-decoration: none; color: #c5050c; }
+      a:hover { text-decoration: underline; color: tan; }
+      h1, h2, h3, h4, h5 {
+        color: #c5050c;
+        background-color: white;
+        font-weight: normal;
+        padding: 5px 5px 5px 5px;
+        margin: 15px 5px 5px 5px;
+        border: none;
+        clear: none;
+      }
+      h1 { font-size: 22pt; margin:  5px 5px 10px 5px; line-height: 28px; }
+      h2 { font-size: 15pt; margin: 20px 5px 15px 5px; letter-spacing: 0.01em; border-bottom: 1px solid #ccc;  line-height: 20px;}
+      h3 { font-size: 13pt; }
+      p {
+          margin: 5px 5px 5px 15px;
+          text-indent:0px;
+          background-color: white;
+      }
+
+    </style>
+    <body>
+        <h1>Results</h1>
+        <p>
+          <a href="index.html">Main Page</a> | <a href="data.html">Data</a> | <a href="acks.html">Acknowledgement</a> | <a href="results.html">Results</a>
+        </p>
+        <h2>Geospatial data of material science</h2>
+        <h3>
+            Is the soft matters a hot topic in current research of material sciences?
+        </h3>
+        <img src="map.svg" width=1000>
+        <p>
+            This map shows the distribution of labs receiving NSF fundings on soft matters in last 6 months. Across the United States, 72 labs are among this list, which illustrates the popularity of this topic. Spatially, many of these labs are clustered in the southern New England and Mid-Atlantic states, while funded labs are relatively rare in lower Mississippi Valley, Pacific Northwest, and upper Mid-west states. Speaking of total amount of fundings received, Texas and Illinois received more than 5,000,000 US dollars, while California, Colorado, Georgia and Indiana also received decent amount of dollars (more than 4,000,000) in this field.
+        </p>
+        <h2>Overview of data</h2>
+        <h3>What's the distribution of our input data?</h3>
+        <img src="data_overview.svg" width=1000>
+        <p>
+            Input parameters are relatively evenly distributed across their respective domains. The critical strain, one of our target parameters, also has a relatively even distribution, with only minor gaps towards 1. However, the other target parameter, the wavenumber, has an uneven distribution. It is significantly clustered between 0.8 and 1, with two smaller clusters centered at 0 and roughly
+    4.5.</p>
+        <p>
+            Parameters of interests in the training data include:</p>
+         <ul>
+            <li>(K/u)_L: layer incompressibility</li>
+            <li>(K/u)_M: matrix incompressibility</li>
+            <li>Jm_L: Jm of layer</li>
+            <li>Jm_M: Jm of matrix</li>
+            <li>u_L/u_M: shear contrast between layer's shear modulus and matrix modulus</li>
+            <li>volume fraction of the layer</li>
+          </ul>
+        <h3>How will polynomial fitting works in fitting the training dataset and perform in the testing dataset</h3>
+        <img src="poly_fit.svg" width=1000>
+        <p>
+            We tried to use the polynomial feature to train the dataset of 6 input parameters regarding both critical strain and wavenumber. Our pipeline includes 3 steps, which are standard cluster, polynomial feature, and linear regression. We tried to use different orders of terms in the polynomial feature in this training pipeline to see their performances. In all tests, 70% of data  is randomly chosen for training and the left is for testing. Starting from the 3-term polynomial, the polynomial function has higher scores on the training dataset than the testing dataset in predicting wavenumber, and has nearly the same score on both sets in predicting the critical strain. This generally ruled out the possibility of potential severe overfitting issues. Generally, linear fitting has the worst performance. This is because the data has a relatively complex relationship that cannot be fitted by the line.
+        </p>
+        <h2>ANN</h2>
+        <h3>How is the training process of artificial neural network like?</h3>
+        <p>A popular topic in machine learning is the artificial neural network (ANN), it is curious to see the training progress of ANN on the material data</p>
+        <video width="1000" height="700" controls autoplay loop>\n  <source type="video/mp4" src="video.mp4"></video>
+        <p>
+            This video illustrates the process of ANN learning in different epochs. We plotted the change of errors for every 5 epochs. We can clearly see some spikes of errors jumping out of the noise line, and they are the results of the randomness of the learning process. The ANN learning may not always find the overall optimal solution; rather, it may find the optimal solutions locally, which would increase the overall error at certain locations.
+        </p>
+        <h3>the distribution of the initial dataset has a considerable influence on the final convergence of ANN. What does it look like and how will the prediction of trained net distribute in space?</h3>
+        <img src="forward.svg" width=1000>
+        <p>
+            Here we took a forward training with 6 parameters of interests as input to predict the last 2 parameters. In physic meaning, this training is to predict material instability with defined material parameters.<br><br>
+Results are cross-plotted by the 2 last parameters. Blue points are the training data while green points are predicted data. We can see that the ANN can somewhat predict the cluster with low E(critical strain) and high K2(wavenumber), and can also generally predict other points with high k2. However, it fails to predict those with higher E but low k2. The ANN also yields some false-positive results in the domain of low E and low-to-mid k2, as well as high E and mid k2. If we check the original dataset, we can easily find the high sparsity of the data, which can easily make a net to convergence toward the low critical strain and high wavenumber direction.
+        </p>
+        <h3>What if the net is used in inverse material design, where the required material instability is given?</h3>
+        <img src="backward.svg" width=1000>
+        <p>
+         To answer this problem, inverse training is implemented. In this analysis, we tried to use the wavenumber and critical strain as input parameters to predict the other 6 parameters of interests. The results are not satisfactory for most parameters except for the shear contrast, whose original distribution is relatively clustered.
+
+        </p>
+        <h3>Is it possible to improve the performance of net through adjusting number of cells on hidden layer?</h3>
+        <img src="hidden_err.svg" width=1000>
+        <p>
+            This is an exploratory analysis demonstrating the relationship among the number of hidden layers, the total square error of the learning, and the number of cells on a single layer. We are a bit surprised by the significantly lower amount of error generated by a network with fewer numbers of cells on each hidden layer. We then think that this might be biased because of the small sample size. Therefore, we continue to make the following plots.
+        </p>
+        <h3>What about adjusting the number of hidden layers? Would that improve the performance of ANN?</h3>
+        <img src="cell_and_hidden.svg" width=1000>
+        <p>
+            Following up on the previous figure, we then added more cells on each hidden layer to see how that might influence the total square error on different networks with different numbers of hidden layers. From this plot, we can see that on all three networks,  the total square error increases when the number of cells per hidden layer is low, and then it will reach a stable level roughly at 25, with occasional spikes of outliers, both upward and downward. The three networks have very similar trends, but the network with 1 hidden layer begins to yield higher total square errors after the number of cells exceeds 400.
+        </p>
+        <h3>What will happen if we change the number of epochs in the training? Would that improve the performance?</h3>
+        <img src="error_dis.svg" width=1000>
+        <p>
+            This plot demonstrates the trend between the number of iterations of the training process and the total square error. It is clear that as the number of iterations goes up, the total square error declines significantly from abot 30 at the 1st epoch to below 8 at 500th epoch. This means that more iterations could help yield more robust results.
+        </p>
+        <h3>Another technique in automatic adjusting the net structure during the training is the dropout. What if we add the dropoff behavior on the net?</h3>
+        <img src="dropoff.svg" width=1000>
+        <p>
+            Inserting dropout layers in the nets, the training and testing of single hidden layer net with 30 initial cells  (dropoff rate is 0.2 ) has a total square error of this layer 13.812575. However, the training of multi-hidden layer nets is not significantly improved. The relationship of total square error and dropoff rate is shown in this figure. Obviously, even on some points the total square error is small, the dropoff rate generally has only a slight influence on the nets. The total square error still stablizes at the range between 22 and 25.
+        </p>
+        <h2>Summary</h2>
+        <p>
+            In conclusion, because the data has a clear relationship between design parameters and instability parameters when 5 of 6 parameters of designing parameters are fixed, the polynomial fitting can reach a relatively good performance when the order is chosen properly. However, the training of ANN will meet some troubles for the high sparsity of original data. For nets with more cells and layers, which means they are more adaptive, worse training may appear due to their over high adaptability: they may more easily be trapped in the local minimums.
+        </p>
+    </body>
+</html>

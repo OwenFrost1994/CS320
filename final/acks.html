@@ -1,0 +1,53 @@
+<html>
+    <title>Acknowledgement</title>
+    <style>
+      body {
+        margin: 10px 10px 10px 10px;
+        padding: auto;
+        max-width: auto;
+        background-color: white;
+        font-family: Kai, Times, "Kai", serif;
+        font-size: 1.2em;
+      }
+      a, a:visited { text-decoration: none; color: #c5050c; }
+      a:hover { text-decoration: underline; color: tan; }
+      h1, h2, h3, h4, h5 {
+        color: #c5050c;
+        background-color: white;
+        font-weight: normal;
+        padding: 5px 5px 5px 5px;
+        margin: 15px 5px 5px 5px;
+        border: none;
+        clear: none;
+      }
+      h1 { font-size: 22pt; margin:  5px 5px 10px 5px; line-height: 28px; }
+      h2 { font-size: 15pt; margin: 20px 5px 15px 5px; letter-spacing: 0.01em; border-bottom: 1px solid #ccc;  line-height: 20px;}
+      h3 { font-size: 13pt; }
+      p {
+          margin: 5px 5px 5px 15px;
+          text-indent:0px;
+          background-color: white;
+      }
+
+    </style>
+    <body>
+        <h1>Acknowledgement</h1>
+        <p>
+          <a href="index.html">Main Page</a> | <a href="data.html">Data</a> | <a href="acks.html">Acknowledgement</a> | <a href="results.html">Results</a>
+        </p>
+        <h2>Code References</h2>
+        <p>Parts of our ANN code are based on or inspired by multiple online resources from <a href=" https://github.com/rasbt/deeplearning-models">this GitHub collection</a>, <a href = "http://zhaoxuhui.top/blog/2018/09/11/PyTorchNote2.html">this blog</a>, and <a href="https://zhuanlan.zhihu.com/p/55600212">this Zhihu column</a>.</p>
+        <p>Other code references are labelled in the notebook and python files.</p>
+        <p>We also thank Tyler for his help and instruction during the virtual office hour.</p>
+        <h2>Peer feedbacks</h2>
+        <p>
+          We thank Jaime Alberto Costales for some very constructive feedbacks on our map plot. Jaime suggests that we should use the USD/lab as the parameter in our choropleth map. This is a nice suggestion and obeys the general rule of modern cartography. However, after consideration, we chose to use our original plot, because what we really want to show in the map is the total amount of fundings received in each states. We do not really care about how much, on average, does a single lab receive, because the amount recived by each lab could be very different. Using the averaged plot would be not as persuasive as the total amount map in showing the overall popularity of the soft matters research.<br><br>
+            Our original map and revised (but abandoned) map are plotted below:
+        </p>
+        <img src="map.svg" width=600>
+        <p>The original map.</p>
+        <img src="map2.svg" width=600>
+        <p>The map showing funding per lab.</p>
+
+    </body>
+</html>

@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+        <script>
+            function subscribe() {
+                var email = prompt("What is your email?", "????");
+                
+                $.post({
+                    type: "POST",
+                    url: "email",
+                    data: email,
+                    contentType: "application/text; charset=utf-8",
+                    dataType: "json"
+                }).done(function(data) {
+                    alert(data);
+                }).fail(function(data) {
+                    alert("POST failed");
+                });
+            }
+        </script>
+    </head>
+  <body>
+      
+    <button onclick="subscribe()">Subscribe</button>
+      
+    <center><h1>Welcometo the Sharing of Yao's Simulation Results!!</h1></center>
+    <center><b><p>Qi Yao</p></b></center>
+    <center><b><p>Soft Matter Lab, University of Wisconsin-Madison</p></b></center>
+    <p style="color:rgba(255,0,0,0.5);">With the extension in researching the performance of soft matter-based composites, identifying the regulations in the onset of materials' instability behavior becomes a significant branch. Here we are firstly sharing the computational mechanic predictions of layered soft composites done on COMSOL Multiphysics. This work is targeted at figuring out the stiffing parameter Jm's impact on the onset of instability behavior, including the critical strain, representing the limit of material compression, and critical wave number, representing the dimension of instability (longwave/macroscopic or shortwave/microscopic). The parameter space involves the stiffing of layer and matrix (<i>Jm</i>^(L) and <i>Jm</i>^(M)), incompressibility of layer and matrix (<i>(&#954/&#956)</i>^(L) and <i>(&#954/&#956)</i>^(M)), shear contrast (<i>&#956</i>^(L)/<i>&#956</i>^(M)) and volume fracture. You can check the database we built.</p>
+      <p><a href="browse.html?" target="_blank">Check our results for layered soft matter instability analysis</a></p>
+      
+      <p><a href="api.html" target="_blank">Download our resources here!!</a></p>
+  </body>
+</html>
